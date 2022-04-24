@@ -1,4 +1,4 @@
-package test;
+package test.lesson_16;
 
 import driver.DriverFactory;
 import driver.Platforms;
@@ -11,13 +11,12 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SwipeVertically {
+public class SwipeHorizontally {
 
     public static void main(String[] args) {
-
         AppiumDriver<MobileElement> driver = DriverFactory.getDriver(Platforms.android);
 
-        try{
+        try {
             MobileElement formsBtn = driver.findElement(MobileBy.AccessibilityId("Forms"));
             formsBtn.click();
 
@@ -27,46 +26,33 @@ public class SwipeVertically {
             wait.until(ExpectedConditions.visibilityOfElementLocated
                     (MobileBy.xpath("//android.widget.ScrollView[@content-desc=\"Forms-screen\"]")));
 
+            MobileElement swipeBtn = driver.findElement(MobileBy.AccessibilityId("Swipe"));
+            swipeBtn.click();
 
             //Get window size
             Dimension windowSize = driver.manage().window().getSize();
             int screenHeight = windowSize.getHeight();
             int screenWidth = windowSize.getWidth();
 
-            //Calculate Touch points (vertically_ xStartPoint & xEndPoint are the same)
-            int xStartPoint = 50 * screenWidth/100;
-            int xEndPoint = 50 * screenWidth/100;
+            int xStartPoint = 50 * screenWidth / 100;
+            int xEndPoint = 10 * screenWidth/100;
 
-
-            //swipe vertically _ yStartPoint = 50%, & yEndPoint will decrease
             int yStartPoint = 50 * screenHeight/100;
-            int yEndPoint = 10 * screenHeight/100;
+            int yEndpoint = 50 * screenHeight/100;
 
             PointOption startPoint = new PointOption().withCoordinates(xStartPoint, yStartPoint);
-            PointOption endPoint = new PointOption().withCoordinates(xEndPoint, yEndPoint);
+            PointOption endPoint = new PointOption().withCoordinates(xEndPoint, yEndpoint);
 
-            //TouchAction to swipe up
-            TouchAction touchAction = new TouchAction(driver);
-            touchAction
-                    //.press(startPoint)
-                    //.waitAction(new WaitOptions().withDuration(Duration.ofSeconds(1)))
-                    .longPress(startPoint)
-                    .moveTo(endPoint)
-                    .release().perform();
+            // swipe from right to left 5 times
+            for (int i = 0; i < 5; i++) {
 
-            //swipe down
-            touchAction
-                    //.press(startPoint)
-                    //.waitAction(new WaitOptions().withDuration(Duration.ofSeconds(1)))
-                    .longPress(endPoint)
-                    .moveTo(startPoint)
-                    .release().perform();
-
-
-
-
-            MobileElement activeBtn = driver.findElement(MobileBy.AccessibilityId("button-Active"));
-            activeBtn.click();
+                TouchAction touchAction = new TouchAction(driver);
+                touchAction
+                        .longPress(startPoint)
+                        .moveTo(endPoint)
+                        .release()
+                        .perform();
+            }
 
         }
         catch(Exception e){
@@ -75,6 +61,5 @@ public class SwipeVertically {
         finally{
             driver.quit();
         }
-
     }
 }
