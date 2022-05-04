@@ -9,13 +9,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import test.context.Contexts;
-import test.context.WaitMoreThanOneContext;
+import context.Contexts;
+import context.WaitMoreThanOneContext;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HybridContext {
 

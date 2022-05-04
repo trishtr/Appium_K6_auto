@@ -1,4 +1,4 @@
-package test.context;
+package context;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;

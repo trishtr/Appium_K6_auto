@@ -1,4 +1,4 @@
-package test.context;
+package context;
 
 public interface Contexts {
 
