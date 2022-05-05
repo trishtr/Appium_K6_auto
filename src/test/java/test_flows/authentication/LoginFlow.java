@@ -5,6 +5,8 @@ import io.appium.java_client.MobileElement;
 import models.components.LoginFormComponents;
 import models.page_objects.LoginScreen;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 import test_flows.BaseFlow;
 
 public class LoginFlow extends BaseFlow {
@@ -68,9 +70,13 @@ public class LoginFlow extends BaseFlow {
     private void verifyCorrectLoginCreds(LoginFormComponents loginFormComponents) {
         //TODO:
 
-        String successLoginMessageTxt = loginFormComponents.getSuccessMessage();
-        System.out.println(successLoginMessageTxt);
+        String actualsuccessLoginMessageTxt = loginFormComponents.getSuccessMessage();
+        String expectedLoginMessageTxt = "You are logged in!";
+
+        Assert.assertEquals(actualsuccessLoginMessageTxt, expectedLoginMessageTxt);
+
         loginFormComponents.clickOkBtn();
+
 
     }
 
@@ -78,16 +84,24 @@ public class LoginFlow extends BaseFlow {
         String actualInvalidEmailStr  = loginFormComponents.getInvalidEmailStr();
         String expectedInvalidEmailStr = "Please enter a valid email address";
 
-        System.out.println("actual " + actualInvalidEmailStr);
-        System.out.println("expected : " + expectedInvalidEmailStr);
+        //verification
+        //assertAll, if not, will be false positive
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualInvalidEmailStr, expectedInvalidEmailStr,
+                "[ERR] Invalid email format str incorrect");
+
+        //assertAll for softAssert(), executing scripts first, then list all errors after
+        //assertAll should be defined inside @AfterMethod
+        softAssert.assertAll();
+        //hard assertion: when running into errors, scripts will stop executing
+        //Assert.assertEquals(actualInvalidEmailStr, expectedInvalidEmailStr, "[ERR] Invalid email format str incorrect");
     }
 
     private void verifyIncorrectPasswordStr(LoginFormComponents loginFormComponents) {
         String actualInvalidPasswordStr  = loginFormComponents.getInvalidPasswordStr();
         String expectedInvalidPasswordStr = "Please enter at least 8 characters";
 
-        System.out.println("actual " + actualInvalidPasswordStr);
-        System.out.println("expected: " + expectedInvalidPasswordStr);
+        Assert.assertEquals(actualInvalidPasswordStr, expectedInvalidPasswordStr);
     }
 
     //support method
