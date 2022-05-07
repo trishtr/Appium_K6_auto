@@ -82,7 +82,7 @@ public class LoginFlow extends BaseFlow {
 
     private void verifyIncorrectEmailStr(LoginFormComponents loginFormComponents) {
         String actualInvalidEmailStr  = loginFormComponents.getInvalidEmailStr();
-        String expectedInvalidEmailStr = "Please enter a valid email address";
+        String expectedInvalidEmailStr = "Please enter a valid email address...";
 
         //verification
         //assertAll, if not, will be false positive

@@ -1,4 +1,4 @@
-package test.lesson_19;
+package test.authen;
 
 import driver.DriverFactory;
 import driver.Platforms;
@@ -6,33 +6,24 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import test.BaseTest;
 import test_data.DataObjectBuilder;
 import test_data.models.LoginCredData;
 import test_flows.authentication.LoginFlow;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
     @Test(dataProvider = "loginCredData")
     public void testLogin(LoginCredData loginCredData) {
-        AppiumDriver<MobileElement> appiumDriver = DriverFactory.getDriver(Platforms.android);
+            //System.out.println(appiumDriver.getSessionId());
+            String email = loginCredData.getEmail();
+            String password = loginCredData.getPassword();
+            LoginFlow loginFlow = new LoginFlow(appiumDriver, email, password);
+            loginFlow.gotoLoginScreen();
+            loginFlow.login();
+            loginFlow.verifyLogin();
+        }
 
-        try{
-            LoginFlow loginFlow = new LoginFlow(appiumDriver, loginCredData.getEmail(), loginCredData.getPassword());
-                loginFlow.gotoLoginScreen();
-                loginFlow.login();
-                loginFlow.verifyLogin();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        finally
-        {
-            appiumDriver.quit();
-        }
-    }
 
     @DataProvider
     public LoginCredData[] loginCredData(){

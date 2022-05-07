@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Regression" >
+    <test name="Authentication" >
+        <classes>
+            <class name="test.authen.LoginTest" />
+            <class name="test.form.FormTest" />
+        </classes>
+    </test>
+
+    <test name="Form" >
+        <classes>
+
+            <class name="test.form.FormTest" />
+        </classes>
+    </test>
+
+
+
+
+</suite>

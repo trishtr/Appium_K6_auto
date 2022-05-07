@@ -1,15 +1,16 @@
 [
   {
-    "email": "abc",
-    "password": "123"
+    "email": "teo@",
+    "password": "12345678"
   },
   {
-    "email": "",
-    "password": ""
+    "email": "ac@sth.xyz",
+    "password": "1234567"
   },
   {
-    "email": "",
-    "password": ""
+    "email": "teo@sth.com",
+    "password": "12345678"
   }
 
 ]
+
